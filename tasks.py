@@ -39,6 +39,12 @@ def task_init(args):
 def task_test(args):
     return _pycmd(f"pytest")
 
+def task_cra(args):
+    return _cmd("npx create-react-app --template typescript --use-npm frontend", args)
+
+def task_sam(args):
+    return _cmd("sam init --runtime python3.8 --dependency-manager pip --output-dir backend --name api", args)
+
 if __name__ == "__main__":
     tasks = _inspect_tasks("task_")
 
