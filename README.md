@@ -32,7 +32,8 @@ sam init --runtime python3.8 --dependency-manager pip --output-dir backend --nam
 ./tasks.py sam
 ```
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/MipjLaTp5nA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ - https://www.youtube.com/watch?v=MipjLaTp5nA
+ - https://www.youtube.com/watch?v=o7OHogUcRmI
 
 ## Frontend
 
@@ -48,4 +49,4 @@ Alternatively:
 
 Static hosting on AWS S3 and using CloudFront CDN
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/mls8tiiI3uc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ - https://www.youtube.com/watch?v=mls8tiiI3uc

@@ -4,12 +4,31 @@ import sys
 from subprocess import run
 
 
-def _inspect_tasks(prefix):
-    return {
-        k.replace(prefix, ""): v
-        for k, v in globals().items()
-        if k.startswith(prefix)
-    }
+def task_init(args):
+    results = []
+    results.append(_cmd("python3 -m venv .venv"))
+    results.append(_pycmd("pip install --upgrade pip setuptools wheel"))
+    results.append(_pycmd("pip list -v --no-index"))
+    return results
+
+
+def task_qa(args):
+    return [_pycmd("black ."), _pycmd("flake8 .")]
+
+
+def task_test(args):
+    return _pycmd("pytest")
+
+
+def task_cra(args):
+    return _cmd("npx create-react-app --template typescript --use-npm frontend", args)
+
+
+def task_sam(args):
+    return _cmd(
+        "sam init --runtime python3.8 --dependency-manager pip --output-dir backend --name api",
+        args,
+    )
 
 
 def _cmd(command, args=[]):
@@ -28,25 +47,9 @@ def _exit_handler(status):
         sys.exit(bad_statuses)
 
 
-def task_init(args):
-    results = []
-    results.append(_cmd("python3 -m venv .venv"))
-    results.append(_pycmd(f"pip install --upgrade pip setuptools wheel"))
-    results.append(_pycmd(f"pip list -v --no-index"))
-    return results
-
-
-def task_test(args):
-    return _pycmd(f"pytest")
-
-def task_cra(args):
-    return _cmd("npx create-react-app --template typescript --use-npm frontend", args)
-
-def task_sam(args):
-    return _cmd("sam init --runtime python3.8 --dependency-manager pip --output-dir backend --name api", args)
-
 if __name__ == "__main__":
-    tasks = _inspect_tasks("task_")
+    prefix = "task_"
+    tasks = {k.replace(prefix, ""): v for k, v in globals().items() if k.startswith(prefix)}
 
     if len(sys.argv) >= 2 and sys.argv[1] in tasks.keys():
         _exit_handler(tasks[sys.argv[1]](sys.argv[2:]))
